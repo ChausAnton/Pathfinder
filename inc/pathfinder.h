@@ -4,7 +4,13 @@
 
 #include "../libmx/inc/libmx.h"
 
-int mx_atoi(const char *s);
+int mx_atoi(const char *);
+
+void mx_printerr(const char *);
+
+void mx_pars_file(char *);
+
+void check_line(char *, int);
 
 typedef struct s_graph {
     size_t size;
