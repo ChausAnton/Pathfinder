@@ -4,8 +4,9 @@
 
 #include "../libmx/inc/libmx.h"
 
+int mx_atoi(const char *s);
+
 typedef struct s_graph {
-    size_t sum;
     size_t size;
     bool **visited;
     char **vertices;
