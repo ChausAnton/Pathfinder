@@ -13,9 +13,10 @@ char *mx_file_to_str(const char *filename) {
     int size = 0;
     char buf;
     short tmp = read(src, &buf, 1);
+    size += tmp;
     while (tmp > 0) {
         tmp = read(src, &buf, 1);
-        size++;
+        size += tmp;
     }
     close(src);
 
@@ -30,6 +31,9 @@ char *mx_file_to_str(const char *filename) {
     }
     int temp = 0;
     char *str = mx_strnew(size);
+    for(int i = 0; i < size; i++) {
+        str[i] = '\0';
+    }
     temp = read(src, str, size);
     close(src);
 

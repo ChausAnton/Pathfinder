@@ -15,24 +15,23 @@ char **mx_pars_file(char *str) {
     }
 
     str = mx_strtrim(str);
+
     char **str_res = (char **) malloc((3 * size + 1) * sizeof(char *));
     for(int i = 0; i < size; i++) {
         str_res[i] = NULL;
     }
-
+    
+    char **arr_str = mx_strsplit(str, '\n');
+    
     int iter = 0;
     int line_num = 1;
-    for(int i = 0; str[i] != '\0'; i++) {
-        if(str[i] == '\n') {
-            if(str[i + 1] == '\0')
-                i++;
+    for(int i = 0; arr_str[i] != NULL; i++) {
 
             line_num++;
-            char *temp = mx_strndup(str, i);
-            temp = mx_strtrim(temp);
+            char *temp = mx_strtrim(arr_str[i]);
             mx_check_str(temp, line_num);
-
-            temp = mx_strndup(str, i);
+            
+            temp = mx_strdup(arr_str[i]);
             temp = mx_strtrim(temp);
             char **arr_temp = mx_strsplit(temp, '-');
 
@@ -43,16 +42,9 @@ char **mx_pars_file(char *str) {
             str_res[iter] = mx_strdup(mx_strsplit(arr_temp[1], ',')[1]);
             iter++;
 
-            if(str[i + 1] == '\0')
-                break;
-            
-            for(int m = 0; m <= i; m++)
-                str++;
-            i = 0;
-        }
     }
     mx_check_dup(str_res, iter);
-    if (size != (iter / 3) + 2) {
+    if (size != (iter / 3) + 1) {
         mx_printerr("error: invalid number of islands\n");
         exit(0);
     }

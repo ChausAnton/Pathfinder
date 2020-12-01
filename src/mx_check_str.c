@@ -1,7 +1,6 @@
 #include "../inc/pathfinder.h"
 
 void mx_check_str(char *str, int line_num) {
-    if(line_num == 10) printf("%s\n", str);
     int index = mx_get_last_char_index(str, '-');
     if(index <= 0) {
         mx_printerr("error: line ");

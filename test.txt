@@ -5,5 +5,5 @@ Kyiv-Warsaw,766
 Kyiv-Paris,2403
 Kyiv-Prague,1141
 Kyiv-Singapore,11864
-Kyiv-Tokyo,3286
+Kyiv-Tokyo,32889
 Tokyo-Singapore,3000
