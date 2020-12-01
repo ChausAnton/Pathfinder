@@ -20,6 +20,8 @@ void mx_check_dup(char **, int);
 
 char **list_of_islands(char **);
 
+int **adjacency_matrix(char **, char **, int);
+
 typedef struct s_graph {
     size_t size;
     bool **visited;
