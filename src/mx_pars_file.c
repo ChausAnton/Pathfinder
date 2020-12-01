@@ -2,6 +2,10 @@
 
 char **mx_pars_file(char *str) {
     int size = mx_atoi(str);
+    if(str[0] == '\n') {
+        mx_printerr("error: line 1 is not valid\n");
+        exit(0);
+    } 
     for(int i = 0; *str != '\n'; i++) {
         if(!mx_isdigit(*str)) {
             mx_printerr("error: line 1 is not valid\n");

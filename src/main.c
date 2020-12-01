@@ -1,5 +1,18 @@
 #include "../inc/pathfinder.h"
 
+void sum_check(int **arr, int size) {
+    double temp = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            temp += arr[i][j];
+            if(temp > 2147483647) {
+                mx_printerr("error: sum of bridges lengths is too big\n");
+                exit(0);
+            }
+        }
+    }
+}
+
 int main (int argc, char *argv[]) {
     if(argc != 2) {
         mx_printerr("usage: ./pathfinder [filename]\n");
@@ -23,6 +36,8 @@ int main (int argc, char *argv[]) {
     }
 
     int **matrix = adjacency_matrix(islands, res, islands_size);
+
+    sum_check(matrix, islands_size);
 
     for(int i = 0; i < islands_size; i++) {
         for(int j = 0; j < islands_size; j++) {
