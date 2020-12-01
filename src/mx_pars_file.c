@@ -1,9 +1,13 @@
 #include "../inc/pathfinder.h"
 
-void mx_pars_file(char *str) {
+char **mx_pars_file(char *str) {
     str = mx_strtrim(str);
     int size = mx_atoi(str);
     char **str_res = (char **) malloc((3 * size + 1) * sizeof(char *));
+    for(int i = 0; i < size; i++) {
+        str_res[i] = NULL;
+    }
+
     str += 2;
     int iter = 0;
     int line_num = 1;
@@ -39,5 +43,7 @@ void mx_pars_file(char *str) {
     mx_check_dup(str_res, iter);
     if (size != (iter / 3) + 1) {
         mx_printerr("error: invalid number of islands\n");
+        exit(0);
     }
+    return str_res;
 }

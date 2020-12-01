@@ -8,7 +8,7 @@ int mx_atoi(const char *);
 
 void mx_printerr(const char *);
 
-void mx_pars_file(char *);
+char **mx_pars_file(char *);
 
 void check_line(char *, int);
 
@@ -17,6 +17,8 @@ void mx_check_str(char *, int);
 int mx_get_last_char_index(const char *, char);
 
 void mx_check_dup(char **, int);
+
+char **list_of_islands(char **);
 
 typedef struct s_graph {
     size_t size;
