@@ -1,4 +1,4 @@
-8
+9
 Kyiv-Kharkiv,471
 Nikopol-Kharkiv,340
 Kyiv-Warsaw,766
@@ -6,3 +6,4 @@ Kyiv-Paris,2403
 Kyiv-Prague,1141
 Kyiv-Singapore,11864
 Kyiv-Tokyo,11079
+Tokyo-Singapore,3000
