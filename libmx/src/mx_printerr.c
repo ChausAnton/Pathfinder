@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "libmx.h"
 
 void mx_printerr(const char *s) {
      int len = mx_strlen(s);

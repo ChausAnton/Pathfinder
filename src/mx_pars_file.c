@@ -1,14 +1,21 @@
 #include "../inc/pathfinder.h"
 
 char **mx_pars_file(char *str) {
-    str = mx_strtrim(str);
     int size = mx_atoi(str);
+    for(int i = 0; *str != '\n'; i++) {
+        if(!mx_isdigit(*str)) {
+            mx_printerr("error: line 1 is not valid\n");
+            exit(0);
+        }
+        str++;
+    }
+
+    str = mx_strtrim(str);
     char **str_res = (char **) malloc((3 * size + 1) * sizeof(char *));
     for(int i = 0; i < size; i++) {
         str_res[i] = NULL;
     }
 
-    str += 2;
     int iter = 0;
     int line_num = 1;
     for(int i = 0; str[i] != '\0'; i++) {

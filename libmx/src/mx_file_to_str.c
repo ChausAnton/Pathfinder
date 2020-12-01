@@ -4,7 +4,10 @@ char *mx_file_to_str(const char *filename) {
     int src = open(filename, O_RDONLY);
 	if (src == -1) {
         close(src);
-		return NULL;
+		mx_printerr("error: file ");
+        mx_printerr(filename);
+        mx_printerr(" does not exist\n");
+        exit(0);
     }
 
     int size = 0;

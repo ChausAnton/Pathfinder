@@ -17,6 +17,7 @@ typedef struct s_list {
     struct s_list *next;
 }   t_list;
 
+void mx_printerr(const char *);
 
 int mx_strlen(const char *);
 
