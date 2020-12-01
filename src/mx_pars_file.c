@@ -23,7 +23,7 @@ char **mx_pars_file(char *str) {
     int iter = 0;
     int line_num = 1;
     for(int i = 0; str[i] != '\0'; i++) {
-        if(str[i] == '\n' || str[i + 1] == '\0') {
+        if(str[i] == '\n') {
             if(str[i + 1] == '\0')
                 i++;
 
@@ -46,13 +46,13 @@ char **mx_pars_file(char *str) {
             if(str[i + 1] == '\0')
                 break;
             
-            for(int m = 0; m < mx_strlen(temp) + 1; m++)
+            for(int m = 0; m <= i; m++)
                 str++;
             i = 0;
         }
     }
     mx_check_dup(str_res, iter);
-    if (size != (iter / 3) + 1) {
+    if (size != (iter / 3) + 2) {
         mx_printerr("error: invalid number of islands\n");
         exit(0);
     }
