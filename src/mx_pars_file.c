@@ -14,9 +14,17 @@ char **mx_pars_file(char *str) {
         str++;
     }
 
+    
+    int lin_num = 0;
+    for(int i = 0; str[i] != '\0'; i++) {
+        if(str[i] == '\n')
+            lin_num++;
+    }
+    
     str = mx_strtrim(str);
 
-    char **str_res = (char **) malloc((3 * size + 1) * sizeof(char *));
+    printf("%d\n",lin_num);
+    char **str_res = (char **) malloc((3 * lin_num + 1) * sizeof(char *));
     for(int i = 0; i < size; i++) {
         str_res[i] = NULL;
     }
@@ -44,9 +52,19 @@ char **mx_pars_file(char *str) {
 
     }
     mx_check_dup(str_res, iter);
-    if (size != (iter / 3) + 1) {
+    char **islands = list_of_islands(str_res);
+    int islands_size = 0;
+    for(int i = 0; islands[i] != NULL; i++) {
+        islands_size++;
+    }
+    if (size != islands_size) {
         mx_printerr("error: invalid number of islands\n");
         exit(0);
     }
+    for(int i = 0; islands[i] != NULL; i++) {
+        free(islands[i]);
+    }
+    free(islands);
+
     return str_res;
 }
