@@ -17,7 +17,7 @@ int **adjacency_matrix(char **islands, char **arr, int size) {
 
     for(int i = 0; i < size; i++) {
         for(int j = 0; j < size; j++) {
-            res[i][j] = 0;
+            res[i][j] = -1;
         }
     }
     int arr_size = 0;

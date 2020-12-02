@@ -20,10 +20,9 @@ char **mx_pars_file(char *str) {
         if(str[i] == '\n')
             lin_num++;
     }
-    
+
     str = mx_strtrim(str);
 
-    printf("%d\n",lin_num);
     char **str_res = (char **) malloc((3 * lin_num + 1) * sizeof(char *));
     for(int i = 0; i < size; i++) {
         str_res[i] = NULL;

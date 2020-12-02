@@ -4,6 +4,26 @@
 
 #include "../libmx/inc/libmx.h"
 
+typedef struct s_node { 
+  
+    int priority; 
+  
+    struct s_node* next; 
+  
+} t_node; 
+
+///////queue
+int peek(t_node**);
+
+int isEmpty(t_node**);
+
+void push(t_node**, int);
+
+void pop(t_node**);
+
+t_node* newNode(int);
+///////queue
+
 int mx_atoi(const char *);
 
 void mx_printerr(const char *);
@@ -21,12 +41,5 @@ void mx_check_dup(char **, int);
 char **list_of_islands(char **);
 
 int **adjacency_matrix(char **, char **, int);
-
-typedef struct s_graph {
-    size_t size;
-    bool **visited;
-    char **vertices;
-    size_t **dependences;
-} t_graph;
 
 #endif

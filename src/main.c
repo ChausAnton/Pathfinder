@@ -1,5 +1,9 @@
 #include "../inc/pathfinder.h"
 
+void pathfinder_alg(int **arr, int size, char **islands) {
+    
+}
+
 void sum_check(int **arr, int size) {
     double temp = 0;
     for (int i = 0; i < size; i++) {
@@ -38,6 +42,8 @@ int main (int argc, char *argv[]) {
     int **matrix = adjacency_matrix(islands, res, islands_size);
 
     sum_check(matrix, islands_size);
+
+    pathfinder_alg(matrix, islands_size, islands);
 
     for(int i = 0; i < islands_size; i++) {
         for(int j = 0; j < islands_size; j++) {
