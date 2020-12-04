@@ -30,49 +30,70 @@ t_node **generate_successors(int **arr, t_node* parent, char **islands) {
     }
 
     for(int i = 0; i < islands_num; i++) {
-        if(i != index && arr[i][index] != -1)
-            successors[i] = new_node(arr[i][index], parent->all_way + arr[i][index], islands[i]);
+        if(i != index && arr[i][index] != -1) {
+            t_node *temp = parent;
+            bool was = false;
+            while(temp) {
+                if(mx_strcmp(temp->name, islands[i]) == 0)
+                    was = true;
+                temp = temp->parent;
+            }
+            if (was == false)
+                successors[i] = new_node(arr[i][index], parent->all_way + arr[i][index], islands[i]);
+        }
     }
 
-    
-
+    int lenght = 0;
+    for(int i = 0; i < islands_num; i++) {
+        if(successors[i] != NULL) {
+            lenght++;
+        }
+    }
+    t_node **successors_res = (t_node **) malloc((lenght) * sizeof(t_node *));
+    lenght = 0;
     for(int i = 0; i < islands_num - 1; i++) {
-        if(successors[i] == NULL) {
-            for(int j = i; j < islands_num - 1; j++) {
-                successors[j] = successors[j + 1];
-                successors[j + 1] = NULL;
-            }
+        if(successors[i] != NULL) {
+            successors_res[lenght] = successors[i];
+            lenght++;
         }
     }
     
-    return successors;
+    return successors_res;
 }
 
 
-t_node *pathfinder_alg(int **arr, char **islands, int cur_x, int goal_x) {
+t_node **pathfinder_alg(int **arr, char **islands, int cur_x, int goal_x) {
     t_node *way = new_node(cur_x, cur_x, islands[cur_x]);
 
     t_queue *queue = newNode(way);
 
+    int islands_num = 0;
+    for(;islands[islands_num] != NULL; islands_num++);
+    t_node **paths = (t_node **) malloc((islands_num) * sizeof(t_node *));
+    for(int i = 0; i < islands_num; i++) {
+        paths[i] = (t_node*)malloc(sizeof(t_node));
+        paths[i] = NULL;
+    }
+    int paths_index = 0;
+
     while (!isEmpty(&queue)) {
         way = queue->node;
         pop(&queue);
-
         t_node **successors = generate_successors(arr, way, islands);
 
         for (int i = 0; successors[i] != NULL; i++) {
             successors[i]->parent = way;
         }
-
+        
         for (int i = 0; successors[i] != NULL; i++) {
             if(mx_strcmp(successors[i]->name, islands[goal_x]) == 0) {
-                way = successors[i];
-                return way;
+                paths[paths_index] = successors[i];
+                paths_index++;
             }
             push(&queue, successors[i]);
         }
     }
-    return way;
+    return paths;
 }
 
 void sum_check(int **arr, int size) {
@@ -123,9 +144,12 @@ int main (int argc, char *argv[]) {
         printf("\n");
     }
     
-    t_node *a = pathfinder_alg(matrix, islands, 0, 2);
-    for(int i =0; a != NULL; i++) {
-        printf("%s\n", a->name);
-        a = a->parent;
+    t_node **a = pathfinder_alg(matrix, islands, 0, 2);
+    for(int i = 0; a[i] != NULL; i++) {
+        for(int j = 0; a[i] != NULL; j++) {
+            printf("%s\n", a[i]->name);
+            a[i] = a[i]->parent;
+        }
+        printf("\n\n");
     }
 }
