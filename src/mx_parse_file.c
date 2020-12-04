@@ -1,6 +1,6 @@
 #include "../inc/pathfinder.h"
 
-char **mx_pars_file(char *str) {
+char **mx_parse_file(char *str) {
     int size = mx_atoi(str);
     if(str[0] == '\n') {
         mx_printerr("error: line 1 is not valid\n");

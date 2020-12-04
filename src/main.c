@@ -124,7 +124,7 @@ int main (int argc, char *argv[]) {
     }
         
 
-    char **res = mx_pars_file(file);
+    char **res = mx_parse_file(file);
     char **islands = list_of_islands(res);
     int islands_size = 0;
     for(int i = 0; islands[i] != NULL; i++) {

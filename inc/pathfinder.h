@@ -37,7 +37,7 @@ int mx_atoi(const char *);
 
 void mx_printerr(const char *);
 
-char **mx_pars_file(char *);
+char **mx_parse_file(char *);
 
 void check_line(char *, int);
 
