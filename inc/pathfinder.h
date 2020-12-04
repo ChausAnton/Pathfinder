@@ -4,24 +4,33 @@
 
 #include "../libmx/inc/libmx.h"
 
-typedef struct s_node { 
+typedef struct s_node { ////graph 
   
-    int priority; 
-  
-    struct s_node* next; 
+    int to_parent; 
+    int all_way;
+    char *name;
+    struct s_node* parent; 
   
 } t_node; 
 
+typedef struct s_queue { 
+  
+    int priority; 
+    t_node *node;
+    struct s_queue* next; 
+  
+} t_queue; 
+
 ///////queue
-int peek(t_node**);
+int peek(t_queue**);
 
-int isEmpty(t_node**);
+int isEmpty(t_queue**);
 
-void push(t_node**, int);
+void push(t_queue**, t_node*);
 
-void pop(t_node**);
+void pop(t_queue**);
 
-t_node* newNode(int);
+t_queue* newNode(t_node*);
 ///////queue
 
 int mx_atoi(const char *);

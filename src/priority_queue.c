@@ -1,26 +1,27 @@
 #include "../inc/pathfinder.h"
 
-t_node* newNode(int p) { 
-    t_node* temp = (t_node*)malloc(sizeof(t_node)); 
-    temp->priority = p; 
-    temp->next = NULL; 
+t_queue* newNode(t_node *node) { 
+    t_queue* temp = (t_queue*)malloc(sizeof(t_queue)); 
+    temp->priority = node->all_way;
+    temp->next = NULL;
+    temp->node = node;
   
     return temp; 
 } 
 
-void pop(t_node** head) { 
-    t_node* temp = *head; 
+void pop(t_queue** head) { 
+    t_queue* temp = *head; 
     (*head) = (*head)->next; 
     free(temp); 
 } 
 
-void push(t_node** head, int p) { 
-    t_node* start = (*head); 
+void push(t_queue** head, t_node *node) { 
+    t_queue* start = (*head); 
   
-    t_node* temp = newNode(p); 
+    t_queue* temp = newNode(node); 
   
 
-    if ((*head)->priority > p) { 
+    if ((*head)->priority > node->all_way) { 
   
         temp->next = *head; 
         (*head) = temp; 
@@ -28,7 +29,7 @@ void push(t_node** head, int p) {
     else { 
   
         while (start->next != NULL && 
-               start->next->priority < p) { 
+               start->next->priority < node->all_way) { 
             start = start->next; 
         } 
   
@@ -37,11 +38,11 @@ void push(t_node** head, int p) {
     } 
 } 
 
-int isEmpty(t_node** head) { 
+int isEmpty(t_queue** head) { 
     return (*head) == NULL; 
 } 
 
-int peek(t_node** head) { 
+int peek(t_queue** head) { 
     return (*head)->priority; 
 } 
 
