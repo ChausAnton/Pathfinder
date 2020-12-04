@@ -19,7 +19,7 @@ void push(t_queue** head, t_node *node) {
     
     t_queue* temp = newNode(node); 
     if((*head) == NULL) {
-        start = temp;
+        (*head) = temp;
         return;
     }    
     if ((*head)->priority > node->all_way) {         

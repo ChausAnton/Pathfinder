@@ -50,7 +50,7 @@ t_node **generate_successors(int **arr, t_node* parent, char **islands) {
 
 
 t_node *pathfinder_alg(int **arr, char **islands, int cur_x, int goal_x) {
-    t_node *way = new_node(0, 0, islands[cur_x]);
+    t_node *way = new_node(cur_x, cur_x, islands[cur_x]);
 
     t_queue *queue = newNode(way);
 
@@ -122,7 +122,8 @@ int main (int argc, char *argv[]) {
         }
         printf("\n");
     }
-    t_node *a =pathfinder_alg(matrix, islands, 0, 3);
+    
+    t_node *a = pathfinder_alg(matrix, islands, 0, 2);
     for(int i =0; a != NULL; i++) {
         printf("%s\n", a->name);
         a = a->parent;
