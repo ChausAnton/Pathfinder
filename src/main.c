@@ -145,13 +145,13 @@ bool mx_compare_names(t_node *node1, t_node *node2) {
     temp_node2 = node2;
     char **temp_name1 = first_last_name(temp_node1);
     char **temp_name2 = first_last_name(temp_node2);
-
-    if((temp_name1[0] == temp_name2[0] && temp_name1[1] == temp_name2[1])) {
+    
+    if((mx_strcmp(temp_name1[0], temp_name2[0]) == 0 && mx_strcmp(temp_name1[1], temp_name2[1]) == 0)) {
         if(length1 > length2) {
             return false;
         }
     }
-    else if ((temp_name1[1] == temp_name2[0] && temp_name1[0] == temp_name2[1])) {
+    else if ((mx_strcmp(temp_name1[1], temp_name2[0]) == 0 && mx_strcmp(temp_name1[0], temp_name2[1]) == 0)) {
         if(length1 > length2) {
             return false;
         }
@@ -233,20 +233,16 @@ void clean_and_output(t_node **res, int size) {
             t_node *temp = res[i];
             t_node *temp_2 = res[j];
             if(i != j) {
-                if(mx_compare_names(temp, temp_2)) {
-                    add = true;
-                }
-                else {
+                if(!mx_compare_names(temp, temp_2)) {
                     add = false;
                 }
-                
             }
         }
         if (add == true) {
             res_temp[h] = res[i];
             h++;
-            add = false;
         }
+        add = true;
     }
 
     /*for(int i = 0; res_temp[i] != NULL; i++) {
