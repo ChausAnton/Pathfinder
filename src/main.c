@@ -211,7 +211,7 @@ void print_node(t_node *node) {
         }
         mx_printstr(" = ");
         int sum = 0;
-        for(int i = 0; i < arr_size; i++) {
+        for(int i = 0; i < arr_size - 1; i++) {
             sum += int_arr[i];
         }
         mx_printint(sum);
