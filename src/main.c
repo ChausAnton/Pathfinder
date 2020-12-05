@@ -38,7 +38,7 @@ t_node **generate_successors(int **arr, t_node* parent, char **islands) {
                     was = true;
                 temp = temp->parent;
             }
-            if (was == false)
+            if (was == false) 
                 successors[i] = new_node(arr[i][index], parent->all_way + arr[i][index], islands[i]);
         }
     }
@@ -49,15 +49,16 @@ t_node **generate_successors(int **arr, t_node* parent, char **islands) {
             lenght++;
         }
     }
+
     t_node **successors_res = (t_node **) malloc((lenght) * sizeof(t_node *));
     lenght = 0;
-    for(int i = 0; i < islands_num - 1; i++) {
+    for(int i = 0; i < islands_num; i++) {
         if(successors[i] != NULL) {
             successors_res[lenght] = successors[i];
             lenght++;
         }
     }
-    
+
     return successors_res;
 }
 
@@ -109,6 +110,158 @@ void sum_check(int **arr, int size) {
     }
 }
 
+char **first_last_name(t_node *node) {
+    char **names = (char **) malloc(2 * sizeof(char*));
+    for(int i = 0; i < 2; i++) {
+        names[i] = NULL;
+    }
+    
+    t_node *temp = node;
+    names[0] = mx_strdup(node->name); 
+    for(int i = 0; temp->parent != NULL; i++) {
+        temp = temp->parent;
+    }
+    names[1] = mx_strdup(temp->name); 
+    return names;
+}
+
+bool mx_compare_names(t_node *node1, t_node *node2) {
+    int length1 = 0;
+    int length2 = 0;
+    
+    t_node *temp_node1 = node1;
+    for(int i = 0; temp_node1 != NULL; i++) {
+        length1 += temp_node1->to_parent;
+        temp_node1 = temp_node1->parent;
+    }
+
+    t_node *temp_node2 = node2;
+    for(int i = 0; temp_node2 != NULL; i++) {
+        length2 += temp_node2->to_parent;
+        temp_node2 = temp_node2->parent;
+    }
+
+    temp_node1 = node1;
+    temp_node2 = node2;
+    char **temp_name1 = first_last_name(temp_node1);
+    char **temp_name2 = first_last_name(temp_node2);
+
+    if((temp_name1[0] == temp_name2[0] && temp_name1[1] == temp_name2[1])) {
+        if(length1 > length2) {
+            return false;
+        }
+    }
+    else if ((temp_name1[1] == temp_name2[0] && temp_name1[0] == temp_name2[1])) {
+        if(length1 > length2) {
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
+void print_node(t_node *node) {
+    mx_printstr("========================================\n");
+
+    mx_printstr("Path: ");
+    mx_printstr(first_last_name(node)[1]);
+    mx_printstr(" -> ");
+    mx_printstr(first_last_name(node)[0]);
+    mx_printchar('\n');
+
+    int arr_size  = 0;
+    t_node *temp = node;
+    for (; temp != NULL; arr_size ++){
+        temp = temp->parent;
+    }
+
+    temp = node;
+    char **names_arr = (char **) malloc(arr_size * sizeof(char*));
+    for (int i = 0; temp != NULL; i++){
+        names_arr[i] = mx_strdup(temp->name);
+        temp = temp->parent;
+    }
+
+    mx_printstr("Route: ");
+    for (int i = arr_size - 1; i >= 0; i--){
+        mx_printstr(names_arr[i]);
+        if(i - 1 >= 0)
+            mx_printstr(" -> ");
+    }
+
+    if(arr_size == 2) {
+        mx_printstr("\nDistance: ");
+        mx_printint(node->to_parent);
+    }
+    else {
+        mx_printstr("\nDistance: ");
+
+        temp = node;
+        int *int_arr = (int *) malloc(arr_size * sizeof(int));
+        for (int i = 0; temp != NULL; i++){
+            int_arr[i] = temp->to_parent;
+            temp = temp->parent;
+        }
+
+        for (int i = arr_size - 2; i >= 0; i--){
+            mx_printint(int_arr[i]);
+            if(i - 1 >= 0) 
+                mx_printstr(" + ");
+        }
+        mx_printstr(" = ");
+        int sum = 0;
+        for(int i = 0; i < arr_size; i++) {
+            sum += int_arr[i];
+        }
+        mx_printint(sum);
+    }
+    mx_printstr("\n========================================\n");
+}
+
+
+void clean_and_output(t_node **res, int size) {
+
+    t_node **res_temp  = (t_node **) malloc(size * sizeof(t_node *));
+    for(int i = 0; i < size; i++) {
+        res_temp[i] = NULL;
+    }
+    int h = 0;
+    bool add = false;
+    for(int i = 0; res[i] != NULL; i++) {
+        for(int j = 0; res[j] != NULL; j++) {
+            t_node *temp = res[i];
+            t_node *temp_2 = res[j];
+            if(i != j) {
+                if(mx_compare_names(temp, temp_2)) {
+                    add = true;
+                }
+                else {
+                    add = false;
+                }
+                
+            }
+        }
+        if (add == true) {
+            res_temp[h] = res[i];
+            h++;
+            add = false;
+        }
+    }
+
+    /*for(int i = 0; res_temp[i] != NULL; i++) {
+        for(int j = 0; res_temp[i] != NULL; j++) {
+            printf("%s\n", res_temp[i]->name);
+            res_temp[i] = res_temp[i]->parent;
+        }
+        printf("\n\n");
+    }*/
+    for(int i = 0; res_temp[i] != NULL; i++) {
+        print_node(res_temp[i]);
+    }
+
+}
+
 int main (int argc, char *argv[]) {
     if(argc != 2) {
         mx_printerr("usage: ./pathfinder [filename]\n");
@@ -135,8 +288,6 @@ int main (int argc, char *argv[]) {
 
     sum_check(matrix, islands_size);
 
-    //pathfinder_alg(matrix, islands_size, islands);
-
     for(int i = 0; i < islands_size; i++) {
         for(int j = 0; j < islands_size; j++) {
             printf("%d\t", matrix[i][j]);
@@ -144,12 +295,41 @@ int main (int argc, char *argv[]) {
         printf("\n");
     }
     
-    t_node **a = pathfinder_alg(matrix, islands, 0, 2);
-    for(int i = 0; a[i] != NULL; i++) {
-        for(int j = 0; a[i] != NULL; j++) {
-            printf("%s\n", a[i]->name);
-            a[i] = a[i]->parent;
-        }
-        printf("\n\n");
+    int i = 0;
+    for(int islands_i = 0;islands_i < islands_size; islands_i++) {
+        for(int islands_j = 0;islands_j < islands_size; islands_j++) {
+            if(islands_i != islands_j) {
+                
+                t_node **a = pathfinder_alg(matrix, islands, islands_i, islands_j);
+
+                for(int j = 0; a[j] != NULL; j++) {
+                    i++;
+                }   
+            }
+        }   
     }
+
+    t_node **res_paths = (t_node **) malloc(i * sizeof(t_node *));
+    for(int j = 0; j < i; j++) {
+        res_paths[j] = NULL;
+    }
+
+    i = 0;
+    for(int islands_i = 0;islands_i < islands_size; islands_i++) {
+        for(int islands_j = 0;islands_j < islands_size; islands_j++) {
+            if(islands_i != islands_j) {
+                
+                t_node **a = pathfinder_alg(matrix, islands, islands_i, islands_j);
+
+                for(int j = 0; a[j] != NULL; j++) {
+                    res_paths[i] = (t_node*)malloc(sizeof(t_node));
+                    res_paths[i] = a[j];
+                    i++;
+                }
+            }
+        }   
+    }
+
+    clean_and_output(res_paths, i);
+
 }
