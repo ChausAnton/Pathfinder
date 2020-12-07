@@ -129,7 +129,7 @@ char **first_last_name(t_node *node) {
     return names;
 }
 
-bool mx_compare_paths(t_node *node1, t_node *node2) {
+bool mx_compare_paths(t_node *node1, t_node *node2, t_node **res_temp) {
     int length1 = 0;
     int length2 = 0;
     
@@ -151,13 +151,21 @@ bool mx_compare_paths(t_node *node1, t_node *node2) {
     char **temp_name2 = first_last_name(temp_node2);
     
     if((mx_strcmp(temp_name1[0], temp_name2[0]) == 0 && mx_strcmp(temp_name1[1], temp_name2[1]) == 0)) {
-        if(length1 > length2) {
-            return false;
-        }
+            if(length1 > length2) {
+                return false;
+            }
     }
     else if ((mx_strcmp(temp_name1[1], temp_name2[0]) == 0 && mx_strcmp(temp_name1[0], temp_name2[1]) == 0)) {
-        if(length1 > length2) {
-            return false;
+        if(res_temp == NULL) {
+            if(length1 >= length2)
+                return false;
+            return true;
+        }
+        for(int i = 0; res_temp[i] != NULL; i++) {
+            t_node *temp = res_temp[i];
+            if(length1 > length2 || !mx_compare_paths(node1, temp, NULL)) {
+                return false;
+            }
         }
     }
 
@@ -240,7 +248,7 @@ void clean_and_output(t_node **res, int size) {
             t_node *temp = res[i];
 
             if(i != j) {
-                if(!mx_compare_paths(temp, temp_2)) {
+                if(!mx_compare_paths(temp, temp_2, res_temp)) {
                     add = false;
                     break;
                 }
