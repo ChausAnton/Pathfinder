@@ -1,6 +1,7 @@
 NAME	=	pathfinder
 
 CFLG	=	-std=c11 $(addprefix -W, all extra error pedantic) -g
+#CFLG = -std=c11 -Wall -Wextra -Werror -Wpedantic -fsanitize=address -fno-omit-frame-pointer
 
 SRC_DIR	= src
 INC_DIR	= inc
