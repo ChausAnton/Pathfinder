@@ -68,7 +68,7 @@ t_node **pathfinder_alg(int **arr, char **islands, int cur_x, int goal_x) {
         way = queue->node;
         pop(&queue);
         t_node **successors = generate_successors(arr, way, islands);
-        sort_paths(successors, islands);
+        //sort_paths(successors, islands);
         for (int i = 0; successors[i] != NULL; i++) {
             successors[i]->parent = way;
         }
