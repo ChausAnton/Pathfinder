@@ -113,5 +113,5 @@ int main (int argc, char *argv[]) {
             }
         }   
     }
-    clean_and_output(res_paths, i);
+    clean_and_output(res_paths, i, islands);
 }

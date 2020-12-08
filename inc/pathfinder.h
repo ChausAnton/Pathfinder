@@ -45,13 +45,13 @@ void print_node(t_node *);
 
 bool mx_compare_paths(t_node *, t_node *, t_node **);
 
-void clean_and_output(t_node **, int );
+void clean_and_output(t_node **, int , char **);
 
 t_node **generate_successors(int **, t_node*, char **);
 
 t_node **pathfinder_alg(int **, char **, int, int);
 
-void sort_paths(t_node **);
+void sort_paths(t_node **, char **);
 
 int mx_atoi(const char *);
 
