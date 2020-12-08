@@ -33,6 +33,26 @@ void pop(t_queue**);
 t_queue* newNode(t_node*);
 ///////queue
 
+t_node *new_node(int, int, char *);
+
+void push_node(int, int, char *, t_node*);
+
+void sum_check(int **, int);
+
+char **first_last_name(t_node *);
+
+void print_node(t_node *);
+
+bool mx_compare_paths(t_node *, t_node *, t_node **);
+
+void clean_and_output(t_node **, int );
+
+t_node **generate_successors(int **, t_node*, char **);
+
+t_node **pathfinder_alg(int **, char **, int, int);
+
+void sort_paths(t_node **);
+
 int mx_atoi(const char *);
 
 void mx_printerr(const char *);
