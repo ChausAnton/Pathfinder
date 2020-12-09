@@ -71,13 +71,6 @@ int main (int argc, char *argv[]) {
     int **matrix = adjacency_matrix(islands, res, islands_size);
 
     sum_check(matrix, islands_size);
-
-    for(int i = 0; i < islands_size; i++) {
-        for(int j = 0; j < islands_size; j++) {
-            printf("%d\t", matrix[i][j]);
-        }
-        printf("\n");
-    }
     
     int i = 0;
     for(int islands_i = 0; islands_i < islands_size; islands_i++) {
