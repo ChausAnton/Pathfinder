@@ -54,7 +54,7 @@ int main (int argc, char *argv[]) {
     
     char *file = mx_file_to_str(argv[1]);
     if(file == NULL) {
-        mx_printerr("error: file");
+        mx_printerr("error: file ");
         mx_printerr(argv[1]);
         mx_printerr(" is empty\n");
         exit(0);
