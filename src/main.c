@@ -70,21 +70,27 @@ int main (int argc, char *argv[]) {
 
     int **matrix = adjacency_matrix(islands, res, islands_size);
 
+    /*for(int i = 0; i < islands_size; i++) {
+        for(int j = 0; j < islands_size; j++) { 
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }*/
+
     sum_check(matrix, islands_size);
     
     int i = 0;
     for(int islands_i = 0; islands_i < islands_size; islands_i++) {
         for(int islands_j = 0; islands_j < islands_size; islands_j++) {
-            if(islands_i != islands_j) {
-                
+            if(islands_i != islands_j) {                
                 t_node **a = pathfinder_alg(matrix, islands, islands_i, islands_j);
-
                 for(int j = 0; a[j] != NULL; j++) {
                     i++;
                 } 
             }
         }   
     }
+
 
     t_node **res_paths = (t_node **) malloc((i + 1) * sizeof(t_node *));
     for(int j = 0; j < i; j++) {

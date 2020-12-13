@@ -61,8 +61,7 @@ void print_node(t_node *node) {
 
 bool mx_compare_paths(t_node *node1, t_node *node2, t_node **res_temp) {
     int length1 = 0;
-    int length2 = 0;
-    
+    int length2 = 0;    
     t_node *temp_node1 = node1;
     for(int i = 0; temp_node1->parent != NULL; i++) {
         length1 += temp_node1->to_parent;
@@ -104,11 +103,13 @@ bool mx_compare_paths(t_node *node1, t_node *node2, t_node **res_temp) {
 }
 
 void clean_and_output(t_node **res, int size, char **islands) {
+
     t_node **res_temp  = (t_node **) malloc(size * sizeof(t_node *));
     for(int i = 0; i < size; i++) {
         res_temp[i] = NULL;
     }
-    islands[0] = mx_strdup("FFF");
+
+    ///islands[0] = mx_strdup("FFF");???????????????????????????????
     res_temp[0] = res[0];
     int h = 1;
     bool add = false;
@@ -116,8 +117,7 @@ void clean_and_output(t_node **res, int size, char **islands) {
     for(int i = 0; res[i] != NULL; i++) {
         for(int j = 0; res[j] != NULL; j++) {
             t_node *temp_2 = res[j];
-            t_node *temp = res[i];
-
+            t_node *temp = res[i];            
             if(i != j) {
                 if(!mx_compare_paths(temp, temp_2, res_temp)) {
                     add = false;
@@ -136,6 +136,7 @@ void clean_and_output(t_node **res, int size, char **islands) {
     for(int i = 0; res_temp[i] != NULL; i++) {
         print_node(res_temp[i]);
     }
+    
 
 }
 
