@@ -5,7 +5,22 @@ char **mx_parse_file(char *str) {
     if(str[0] == '\n') {
         mx_printerr("error: line 1 is not valid\n");
         exit(0);
-    } 
+    }
+
+    int temp_lines = 1;
+    for(int i = 0; str[i + 1] != '\0'; i++) {
+        if(str[i] == '\n' && str[i + 1] == '\n') {
+            temp_lines++;
+            mx_printerr("error: line ");
+            mx_printerr(mx_itoa(temp_lines));
+            mx_printerr(" is not valid\n");
+            exit(0);
+        }
+        else if(str[i] == '\n')  {
+            temp_lines++;
+        }
+    }
+
     for(int i = 0; *str != '\n'; i++) {
         if(!mx_isdigit(*str)) {
             mx_printerr("error: line 1 is not valid\n");
@@ -27,9 +42,9 @@ char **mx_parse_file(char *str) {
     for(int i = 0; i < size; i++) {
         str_res[i] = NULL;
     }
-    
+
     char **arr_str = mx_strsplit(str, '\n');
-    
+
     int iter = 0;
     int line_num = 1;
     for(int i = 0; arr_str[i] != NULL; i++) {
