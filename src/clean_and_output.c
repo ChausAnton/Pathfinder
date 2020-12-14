@@ -136,7 +136,5 @@ void clean_and_output(t_node **res, int size, char **islands) {
     for(int i = 0; res_temp[i] != NULL; i++) {
         print_node(res_temp[i]);
     }
-    
-
 }
 

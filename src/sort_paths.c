@@ -24,7 +24,6 @@ char **mx_get_names(t_node *paths) {
     }
 
     return names;
-
 }
 
 void sort_paths(t_node **paths, char **islands) {
@@ -40,11 +39,12 @@ void sort_paths(t_node **paths, char **islands) {
             t_node *temp2 = paths[i + 1];
             char **names1 = mx_get_names(temp1);
             char **names2 = mx_get_names(temp2);
-
+            int index1 = 0;
+            int index2 = 0;
             for(int b = 0 ; names1[b] != NULL && names2[b] != NULL; b++) {
                 if(mx_strcmp(names1[b], names2[b]) != 0) {
 
-                    int index1 = 0;
+                    
                     for(int j = 0; islands[j] != NULL; j++) {
                         if(mx_strcmp(islands[j], names1[b]) == 0) {
                             break;
@@ -52,7 +52,7 @@ void sort_paths(t_node **paths, char **islands) {
                         index1++;
                     }
 
-                    int index2 = 0;
+                    
                     for(int j = 0; islands[j] != NULL; j++) {
                         if(mx_strcmp(islands[j], names2[b]) == 0) {
                             break;
@@ -60,17 +60,17 @@ void sort_paths(t_node **paths, char **islands) {
                         index2++;
                     }
 
-                    if(index1 > index2) {
-                        t_node *temp = paths[i];
-                        paths[i] = paths[i + 1];
-                        paths[i + 1] = temp;
-                        if(i >= 0)
-                            i--;
+                    if(index1 != index2) {
                         break;
                     }
                 }
             }
-
+            if(index1 > index2) {
+                t_node *temp = paths[i];
+                paths[i] = paths[i + 1];
+                paths[i + 1] = temp;
+                i = 0;
+            }
         
         }
     }
