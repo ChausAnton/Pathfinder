@@ -9,8 +9,9 @@ char **mx_parse_file(char *str) {
 
     int temp_lines = 1;
     for(int i = 0; str[i + 1] != '\0'; i++) {
-        if(str[i] == '\n' && str[i + 1] == '\n') {
-            temp_lines++;
+        if(mx_isspace(str[i]) && mx_isspace(str[i + 1])) {
+            if(str[i] == '\n')
+                temp_lines++;
             mx_printerr("error: line ");
             mx_printerr(mx_itoa(temp_lines));
             mx_printerr(" is not valid\n");
