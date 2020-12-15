@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <wchar.h>
 #include <malloc/malloc.h> //mac malloc_size
-//#include <malloc.h>//ubuntu malloc_size
+//#include <malloc.h>//ubuntu malloc_usable_size
 #include "hex_to_nbr.h"
 #include "nbr_to_hex.h"
 
