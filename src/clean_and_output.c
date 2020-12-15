@@ -59,6 +59,7 @@ void print_node(t_node *node) {
 }
 
 
+
 bool mx_compare_paths(t_node *node1, t_node *node2, t_node **res_temp) {
     int length1 = 0;
     int length2 = 0;    
@@ -78,7 +79,7 @@ bool mx_compare_paths(t_node *node1, t_node *node2, t_node **res_temp) {
     temp_node2 = node2;
     char **temp_name1 = first_last_name(temp_node1);
     char **temp_name2 = first_last_name(temp_node2);
-    
+
     if((mx_strcmp(temp_name1[0], temp_name2[0]) == 0 && mx_strcmp(temp_name1[1], temp_name2[1]) == 0)) {
             if(length1 > length2) {
                 return false;
@@ -109,15 +110,13 @@ void clean_and_output(t_node **res, int size, char **islands) {
         res_temp[i] = NULL;
     }
 
-    ///islands[0] = mx_strdup("FFF");???????????????????????????????
-    res_temp[0] = res[0];
-    int h = 1;
-    bool add = false;
+    int h = 0;
+    bool add = true;
 
     for(int i = 0; res[i] != NULL; i++) {
         for(int j = 0; res[j] != NULL; j++) {
             t_node *temp_2 = res[j];
-            t_node *temp = res[i];            
+            t_node *temp = res[i]; 
             if(i != j) {
                 if(!mx_compare_paths(temp, temp_2, res_temp)) {
                     add = false;

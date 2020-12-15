@@ -1,4 +1,7 @@
-3
-Blade-Wizard,1
-Drive-Blade,1
-Wizard-Drive,1
+4
+a-c,3
+c-d,1
+d-a,1
+b-c,3
+b-a,1
+b-d,2
